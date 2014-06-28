@@ -1,4 +1,6 @@
 hacks
 =====
 
-Random hacks and samples of core CS concepts
+Random hacks and samples of core CS concepts.
+
+
