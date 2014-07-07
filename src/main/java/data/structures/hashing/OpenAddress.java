@@ -3,6 +3,7 @@ package data.structures.hashing;
 /**
  * Created by skunnumkal on 6/28/14.
  */
+//FIXME This code is not clean and needs to be refactored
 public class OpenAddress {
     private Cell[] table; // = new Cell[10];
     public OpenAddress(int size){
