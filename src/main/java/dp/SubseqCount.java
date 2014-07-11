@@ -31,7 +31,7 @@ public class SubseqCount {
 
     public static void main(String[] args){
         String search = "rabbi";
-        String target = "rrabbbitt";
+        String target = "rracbdbeebitt";
         System.out.println(SubseqCount.count(search,target));
     }
 }
