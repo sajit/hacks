@@ -30,8 +30,9 @@ public class SubseqCount {
     }
 
     public static void main(String[] args){
-        String search = "rabbi";
-        String target = "rrabbbitt";
+        String search = "abbii";
+        String target = "rarbbbitt";
         System.out.println(SubseqCount.count(search,target));
+
     }
 }
