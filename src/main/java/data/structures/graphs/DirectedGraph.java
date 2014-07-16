@@ -10,14 +10,18 @@ import java.util.Set;
  */
 public class DirectedGraph {
 
-    Set<Vertex> vertexList = new HashSet<Vertex>();
+    List<Vertex> vertexList = new ArrayList<Vertex>();
 
 
     public void addVertex(String vertexName){
         if(vertexName == null){
             throw new IllegalArgumentException("Null vertex");
         }
-        vertexList.add(new Vertex(vertexName));
+        Vertex newVertex = Vertex.of(vertexName);
+        if(!vertexList.contains(newVertex)){
+            vertexList.add(newVertex);
+        }
+
     }
 
     public void addEdge(String fromVertex,int edgeWeight,String toVertex){
@@ -25,23 +29,27 @@ public class DirectedGraph {
         if(!vertexList.contains(from) || !vertexList.contains(Vertex.of(toVertex))){
             throw new IllegalArgumentException("One or more of the vertices does not exist");
         }
-
-        from.addEdge(edgeWeight,toVertex);
-
-        vertexList.add(from);
+        for(Vertex aVertex : vertexList){
+            if(aVertex.equals(from)){
+                aVertex.addEdge(edgeWeight,toVertex);
+            }
+        }
 
     }
 
     public List<Vertex> getConnected(String fromVertex){
         Vertex from = Vertex.of(fromVertex);
-        if(vertexList.contains(from)){
-            List<Vertex> result = new ArrayList<Vertex>();
-            for(Edge anEdge : from.edgeList){
-
-                result.add(Vertex.of(anEdge.to));
+        for(Vertex aVertex : vertexList){
+            if(aVertex.equals(from)){
+                List<Vertex> result = new ArrayList<Vertex>();
+                List<Edge> connectedEdges = aVertex.edgeList;
+                for(Edge edge : connectedEdges){
+                    result.add(Vertex.of(edge.to));
+                }
+                return result;
             }
-            return result;
         }
+
         return null;
     }
 

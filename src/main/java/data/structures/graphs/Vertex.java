@@ -38,4 +38,9 @@ public class Vertex {
     public static Vertex of(String name) {
         return new Vertex(name);
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }
