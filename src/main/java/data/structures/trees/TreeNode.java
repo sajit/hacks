@@ -6,6 +6,7 @@ package data.structures.trees;
 public class TreeNode {
 
     public int value;
+    public boolean visited = false;
     public TreeNode left = null,right = null,parent = null;
 
     public TreeNode(int value){
@@ -16,5 +17,12 @@ public class TreeNode {
         return left  == null && right == null;
     }
 
+    @Override
+    public String toString(){
+        return "{"+value+" ;visited?"+visited+"}";
+    }
 
+    public TreeNode[] getChildren() {
+        return new TreeNode[]{left,right};
+    }
 }
