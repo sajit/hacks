@@ -11,6 +11,7 @@ public class InheritanceUtils {
         b1.baz();
         b1.bar(new Base());
         b1.bar(new Derived1());
+        System.out.println(b1.get());
 
         System.out.println("------------------------------------------");
 
@@ -19,7 +20,7 @@ public class InheritanceUtils {
         d1.baz();
         d1.bar(new Base());
         d1.bar(new Derived1());
-
+        System.out.println(d1.get());
 
         System.out.println("------------------------------------------");
 
@@ -28,6 +29,7 @@ public class InheritanceUtils {
         b2.baz();
         b2.bar(new Base());
         b2.bar(new Derived1());
+        System.out.println(b2.get());
 
         //Base cannot be cast to Derived
         //Derived1 d2 = (Derived1)new Base();

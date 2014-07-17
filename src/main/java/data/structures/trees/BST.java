@@ -19,7 +19,7 @@ public class BST {
 
 
 
-    private TreeNode doAdd(TreeNode currentNode, int value,TreeNode parentNode) {
+    protected TreeNode doAdd(TreeNode currentNode, int value,TreeNode parentNode) {
         if(currentNode == null){
             TreeNode newNode = new TreeNode(value);
             newNode.parent = parentNode;

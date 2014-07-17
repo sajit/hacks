@@ -16,4 +16,13 @@ public class Base {
     public void baz(){
         System.out.println("Baz  Base");
     }
+
+    public Base get(){
+        return new Base();
+    }
+
+    @Override
+    public String toString(){
+        return "base";
+    }
 }

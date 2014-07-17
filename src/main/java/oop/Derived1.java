@@ -18,4 +18,14 @@ public class Derived1 extends Base {
     public void baz(){
         System.out.println("Derived1 baz");
     }
+
+    @Override
+    public Derived1 get(){
+        return new Derived1();
+    }
+
+    @Override
+    public String toString(){
+        return "derived";
+    }
 }
