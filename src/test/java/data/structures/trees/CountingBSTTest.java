@@ -32,4 +32,10 @@ public class CountingBSTTest {
         System.out.println("Left Count " + cRoot.leftCount +  " Right Count : " + cRoot.rightCount);
         assertThat(count).isGreaterThan(5);
     }
+
+    @Test
+    public void getMedian(){
+        CountTreeNode cRoot = (CountTreeNode)cBst.root;
+        System.out.println(TreeFns.median(cRoot,0));
+    }
 }

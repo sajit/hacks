@@ -7,6 +7,8 @@ import fixtures.TreeUtils;
  */
 public class TreeFns {
 
+    public static final int MOVE_RIGHT = -1;
+    public static final int MOVE_LEFT = 1;
     public static int count(TreeNode node){
         if(node==null){
             return 0;
@@ -26,5 +28,20 @@ public class TreeFns {
         TreeNode root = TreeUtils.createTree(10);
         System.out.println(TreeFns.height(root));
         System.out.println(TreeFns.count(root));
+        System.out.println("++++++++++++++++++++++++");
+
+    }
+
+    public static int median(CountTreeNode node,int keep){
+       int decision =node.rightCount - node.leftCount + keep;
+       if(decision ==0){
+           return node.value;
+       }
+       else if(decision<0){
+           return median((CountTreeNode)node.left,keep+node.rightCount+MOVE_LEFT);
+       }
+       else{
+           return median((CountTreeNode)node.right,keep-node.leftCount+MOVE_RIGHT);
+       }
     }
 }
