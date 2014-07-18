@@ -1,7 +1,8 @@
 package combinatorial;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.google.common.collect.ImmutableList;
+
+import java.util.*;
 
 /**
  * Created by sajit on 7/18/14.
@@ -26,6 +27,37 @@ public class PAndCUtils {
             String suffix = str.substring(i+1);
             doCombos(prefix+suffix,soFar);
         }
+    }
+
+
+    public static List<String> permutations(String x){
+        List<String> result = new ArrayList<String>();
+        for(int i=0;i<x.length();i++){
+            char ch = x.charAt(i);
+            result = generatePerms(result,ch);
+        }
+
+        return  result;
+    }
+
+    private static List<String> generatePerms(List<String> intermediate, char ch) {
+        List<String> updatedResult = new ArrayList<String>();
+        if(intermediate.isEmpty()){
+            return ImmutableList.of(String.valueOf(ch));
+        }
+        for(String subString : intermediate){
+            updatedResult.addAll(insertIntoEveryPosition(subString,ch));
+        }
+        return updatedResult;
+    }
+
+    private static List<String> insertIntoEveryPosition(String targetString, char insertChar) {
+        List<String> gens = new ArrayList<String>();
+        for(int i=0;i<targetString.length();i++){
+          //gens.add();
+        }
+        return gens;
+
     }
 
     public static void main(String[] args){
