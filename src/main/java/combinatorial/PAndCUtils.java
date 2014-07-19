@@ -30,6 +30,22 @@ public class PAndCUtils {
     }
 
 
+    public static List<String> nCr(String s,int r){
+        Set<String> combos = combos(s);
+        Set<String> subset = new HashSet<String>();
+        for(String aCombo : combos){
+            if(aCombo.length()==r){
+                subset.add(aCombo);
+            }
+        }
+
+        List<String> result = new ArrayList<String>();
+        for(String aCombo : subset){
+            result.addAll(permutations(aCombo));
+        }
+
+        return  result;
+    }
     public static List<String> permutations(String x){
         List<String> result = new ArrayList<String>();
         for(int i=0;i<x.length();i++){
@@ -42,19 +58,23 @@ public class PAndCUtils {
 
     private static List<String> generatePerms(List<String> intermediate, char ch) {
         List<String> updatedResult = new ArrayList<String>();
+        System.out.println(" Ch = " + ch + ",intermediate " + intermediate);
         if(intermediate.isEmpty()){
             return ImmutableList.of(String.valueOf(ch));
         }
         for(String subString : intermediate){
             updatedResult.addAll(insertIntoEveryPosition(subString,ch));
         }
+        System.out.println("After insertions into every position " + updatedResult);
         return updatedResult;
     }
 
     private static List<String> insertIntoEveryPosition(String targetString, char insertChar) {
         List<String> gens = new ArrayList<String>();
-        for(int i=0;i<targetString.length();i++){
-          //gens.add();
+        for(int i=0;i<=targetString.length();i++){
+          String prefix = targetString.substring(0,i);
+          String suffix = targetString.substring(i);
+          gens.add(prefix+insertChar+suffix);
         }
         return gens;
 
