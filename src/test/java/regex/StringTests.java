@@ -15,5 +15,24 @@ public class StringTests {
       assertThat(a.substring(0,0)).isEqualTo("");
       assertThat(a.substring(2)).isEqualTo("");
       assertThat(a.substring(1)).isEqualTo("d");
+
+      String x = "add";
+      String y=   x.intern();
+      System.out.println(y);
     }
+
+    @Test
+    public void pooling(){
+        String s = "ab"+"c";
+        String t = "a"+"bc";
+        assertThat(s==t).isTrue();
+        assertThat(s.equals(t)).isTrue();
+
+        String ns = new String("ab"+"c");
+        String nt = new String("a"+"bc");
+        assertThat(ns == nt).isFalse();
+        assertThat(ns.equals(nt)).isTrue();
+    }
+
+
 }
