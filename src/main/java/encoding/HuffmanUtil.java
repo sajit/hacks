@@ -44,6 +44,27 @@ public class HuffmanUtil {
 
     }
 
+    public static String decode(String encoded,HuffmanNode node){
+
+        if(node.left == null && node.right == null){
+            return node.value;
+        }
+        StringBuffer sb = new StringBuffer();
+//        if(encoded.isEmpty()){
+//            return "";
+//        }
+//        String ch = String.valueOf(encoded.charAt(0));
+//        if(ch.equals("0")){
+//            sb.append(decode(encoded.substring(1),node.left));
+//        }
+//        if(ch.equals("1")){
+//            sb.append(decode(encoded.substring(1),node.right));
+//        }
+
+
+        return sb.toString();
+    }
+
     private static String getEncoding(String ch, HuffmanNode root) {
         return doGetEncoding(ch,root,"");
 
@@ -87,6 +108,8 @@ public class HuffmanUtil {
         String encoding = HuffmanUtil.encode(targetString,root);
         //expected is 0 110 0 10 111 110 0
         System.out.println("Encoded string " + encoding);
+
+        System.out.println("Decoded " + HuffmanUtil.decode(encoding,root));
     }
 
 
