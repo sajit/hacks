@@ -44,25 +44,37 @@ public class HuffmanUtil {
 
     }
 
-    public static String decode(String encoded,HuffmanNode node){
+    public static String decode(String encoded,HuffmanNode node,HuffmanNode root){
 
-        if(node.left == null && node.right == null){
-            return node.value;
-        }
+
+
+
         StringBuffer sb = new StringBuffer();
-//        if(encoded.isEmpty()){
-//            return "";
-//        }
-//        String ch = String.valueOf(encoded.charAt(0));
-//        if(ch.equals("0")){
-//            sb.append(decode(encoded.substring(1),node.left));
-//        }
-//        if(ch.equals("1")){
-//            sb.append(decode(encoded.substring(1),node.right));
-//        }
+        doDecode(node,encoded,sb,root);
+
 
 
         return sb.toString();
+    }
+
+    private static void doDecode(HuffmanNode node, String encoded, StringBuffer sb,HuffmanNode root) {
+        //System.out.println("StringBuffer so far " + sb.toString());
+        //System.out.println("Current node " + node);
+        //System.out.println("Encoded.." + encoded);
+        if(node.left == null && node.right == null){
+            sb.append(node.value);
+            doDecode(root,encoded,sb,root);
+        }
+        if(encoded.isEmpty()){
+            return;
+        }
+        String head = String.valueOf(encoded.charAt(0));
+        if(head.equals("0") && node.left != null){
+            doDecode(node.left,encoded.substring(1),sb,root);
+        }
+        if(head.equals("1") && node.right != null){
+            doDecode(node.right,encoded.substring(1),sb,root);
+        }
     }
 
     private static String getEncoding(String ch, HuffmanNode root) {
@@ -109,7 +121,7 @@ public class HuffmanUtil {
         //expected is 0 110 0 10 111 110 0
         System.out.println("Encoded string " + encoding);
 
-        System.out.println("Decoded " + HuffmanUtil.decode(encoding,root));
+        System.out.println("Decoded " + HuffmanUtil.decode(encoding,root,root));
     }
 
 
