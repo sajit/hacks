@@ -5,23 +5,28 @@ package design;
  */
 public class Elevator {
     
-    Integer currentFloor,targetFloor;
+    Integer currentFloor;
     private boolean moving = false;
 
-    public void setTargetFloor(Integer floor){
-        this.targetFloor = floor;
+    public Elevator(Integer currentFloor){
+        this.currentFloor = currentFloor;
     }
+
     
-    public void setCurrentFloor(Integer floor){
-        this.currentFloor = floor;
-    }
+
     
-    public void move() throws InterruptedException {
-        if(currentFloor.intValue() != targetFloor.intValue()){
-            moving = true;
-            Thread.sleep(Math.abs(targetFloor.intValue()-currentFloor.intValue())*5000);
-            moving = false;
+    public void move(Integer targetFloor) throws InterruptedException {
+        synchronized (this){
+            if(currentFloor.intValue() != targetFloor.intValue()){
+                moving = true;
+                printStatus();
+                Thread.sleep(Math.abs(targetFloor.intValue()-currentFloor.intValue())*3000);
+
+                this.currentFloor = targetFloor;
+                moving = false;
+            }
         }
+
 
     }
     

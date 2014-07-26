@@ -25,5 +25,9 @@ public class Message {
         return srcString+ " : " + destString;
     }
 
+    public static Message of(Integer src,Integer dest){
+        return new Message(src,dest);
+    }
+
 
 }
