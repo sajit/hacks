@@ -26,7 +26,7 @@ public class Elevator {
                 moving = false;
             }
         }
-
+        printStatus();
 
     }
     
@@ -36,7 +36,7 @@ public class Elevator {
 
     public void printStatus(){
         if(moving){
-           System.out.println("In motion..");
+           System.out.println("In motion.. start from " + currentFloor );
         }
         else{
             System.out.println("Current floor " + currentFloor);
