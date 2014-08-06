@@ -1,6 +1,7 @@
 package combinatorial;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import java.util.*;
 
@@ -10,6 +11,37 @@ import java.util.*;
 public class PAndCUtils {
 
     private static int duplicateCount = 0;
+
+    static Set<Set<Integer>> resultSet = new HashSet<Set<Integer>>();
+    public static Set<Set<Integer>> intCombos(List<Integer> ints){
+
+        doIntCombos(ints);
+        return resultSet;
+    }
+
+    private static void doIntCombos(List<Integer> integers) {
+        resultSet.add(new HashSet<Integer>(integers));
+        if(integers.size()<=1){
+            return;
+        }
+
+        for(int i=0;i<integers.size();i++){
+            List<Integer> prefix = integers.subList(0,i);
+            List<Integer> suffix = integers.subList(i+1,integers.size());
+            List<Integer> remaining = new ArrayList<Integer>();
+            remaining.addAll(prefix);
+            remaining.addAll(suffix);
+            
+            doIntCombos(remaining);
+        }
+
+        for(Set<Integer> aSet : resultSet){
+            System.out.print(aSet + " ");
+        }
+        System.out.println("**" + resultSet.size());
+
+    }
+
     public static Set<String> combos(String x){
         Set<String> resultSet = new HashSet<String>();
         //resultSet.add(x);
@@ -81,13 +113,19 @@ public class PAndCUtils {
     }
 
     public static void main(String[] args){
-        Set<String> result = PAndCUtils.combos("abc");
-        for(String a : result){
-            System.out.print( " " + a);
-        }
-        System.out.println("# of combinations = " + result.size());
-        System.out.println("++++++++++++++++++++++++++");
+//        Set<String> result = PAndCUtils.combos("abc");
+//        for(String a : result){
+//            System.out.print( " " + a);
+//        }
+//        System.out.println("# of combinations = " + result.size());
+//        System.out.println("++++++++++++++++++++++++++");
+//
+//        System.out.println("# of times duplicates were attempted to be added " + duplicateCount);
 
-        System.out.println("# of times duplicates were attempted to be added " + duplicateCount);
+        List<Integer> ints = ImmutableList.of(1,5,7);
+        Set<Set<Integer>> result = PAndCUtils.intCombos(ints);
+//        for(Set<Integer> aSet : result){
+//            System.out.println(aSet);
+//        }
     }
 }
