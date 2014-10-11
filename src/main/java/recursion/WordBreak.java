@@ -24,9 +24,7 @@ public class WordBreak {
         return false;
     }
 
-    public static boolean abc(String word){
 
-    }
 
 
     public static void main(String[] args){
