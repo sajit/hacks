@@ -14,5 +14,6 @@ public class WordNodeSpec {
         dictionary.insert("tower",56);
         assertThat(dictionary.isWord("tower")).isTrue();
         assertThat(dictionary.isWord("geo")).isFalse();
+        assertThat(dictionary.isWord("towe")).isFalse();
     }
 }
