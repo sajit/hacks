@@ -14,14 +14,7 @@ public class LongestPalindrome {
         }
 
         //adjacent characters should have 2
-//        for(int i=0;i<str.length()-1;i++){
-//            if(str.charAt(i) == str.charAt(i+1)){
-//                table[i][i+1] = 2;
-//            }
-//            else{
-//                table[i][i+1]=0;
-//            }
-//        }
+
         int max = 0;
         for(int i=table.length-2;i>=0;i--){
             for(int j=i+1;j<table[i].length;j++){

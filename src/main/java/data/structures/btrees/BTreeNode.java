@@ -1,6 +1,7 @@
 package data.structures.btrees;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,26 @@ public class BTreeNode {
     public int getSize(){
         return keyChildren.size();
     }
+
+    public boolean insert(KeyChildPair pair){
+        if(getSize()<maxSize){
+            keyChildren.add(pair);
+            Collections.sort(keyChildren);
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
     public BTreeNode rightMost = null;
+
+    public static BTreeNode create(int key){
+        BTreeNode newNode = new BTreeNode();
+        KeyChildPair firstPair = new KeyChildPair(key,null);
+        newNode.keyChildren.add(firstPair);
+        return newNode;
+    }
 
 }
 class KeyChildPair implements Comparable<KeyChildPair>{
