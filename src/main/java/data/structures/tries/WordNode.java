@@ -9,11 +9,11 @@ import java.util.List;
 public class WordNode {
 
     final String prefix;
-    final boolean isCompleteWord;
-    final int rank;
+    boolean isCompleteWord;
+    int rank;
     WordNode[] children = new WordNode[26];
     List<String> top3 = new ArrayList<>();
-    public WordNode(String prefix,boolean isCompleteWord,int rank){
+    public WordNode(String prefix){
         this.prefix = prefix;
         this.isCompleteWord = isCompleteWord;
         this.rank = rank;
