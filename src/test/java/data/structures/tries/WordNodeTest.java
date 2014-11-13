@@ -6,7 +6,7 @@ import static org.fest.assertions.Assertions.*;
 /**
  * Created by sajit on 11/12/14.
  */
-public class WordNodeSpec {
+public class WordNodeTest {
 
     Dictionary dictionary = new Dictionary();
     @Test

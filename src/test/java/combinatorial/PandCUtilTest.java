@@ -22,7 +22,7 @@ public class PandCUtilTest {
     }
 
     @Test
-    public void nChooseR(){
+    public void testNChooseR(){
         List<String> result = PAndCUtils.nCr("abc",2);
         for(String s : result){
             System.out.print(" " + s);
