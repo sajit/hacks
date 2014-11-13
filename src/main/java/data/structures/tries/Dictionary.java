@@ -45,4 +45,19 @@ public class Dictionary {
         }
         
     }
+
+    public int countNodes(){
+        return doCount(root);
+
+    }
+
+    private int doCount(WordNode current) {
+        int sum = 0;
+        for(WordNode child : current.children){
+            if(child != null){
+                sum += doCount(child);
+            }
+        }
+        return 1 + sum;
+    }
 }

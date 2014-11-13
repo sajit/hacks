@@ -16,4 +16,12 @@ public class WordNodeSpec {
         assertThat(dictionary.isWord("geo")).isFalse();
         assertThat(dictionary.isWord("towe")).isFalse();
     }
+
+    @Test
+    public void countNodes(){
+        dictionary.insert("tower",56);
+        dictionary.insert("tea",34);
+        dictionary.insert("yeshu",1);
+        assertThat(dictionary.countNodes()).isEqualTo(13);
+    }
 }
