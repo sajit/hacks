@@ -1,6 +1,7 @@
 package data.structures.tries;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class WordNode {
     boolean isCompleteWord;
     int rank;
     WordNode[] children = new WordNode[26];
-    List<String> top3 = new ArrayList<>();
+    List<WordRank> top2 = new ArrayList<>();
     public WordNode(String prefix){
         this.prefix = prefix;
         this.isCompleteWord = isCompleteWord;
@@ -25,6 +26,27 @@ public class WordNode {
         return prefix;
     }
 
+    public void insertToTop3(WordRank wordRank){
+        top2.add(wordRank);
+        Collections.sort(top2);
+        if(top2.size()>2){
+             top2.remove(2);
+        }
+    }
 
 
+
+}
+class WordRank implements Comparable<WordRank>{
+  public final String word;
+  public final int rank;
+
+    public WordRank(String word,int rank){
+        this.word = word; this.rank = rank;
+
+    }
+    @Override
+    public int compareTo(WordRank o) {
+          return o.rank - rank;
+    }
 }
