@@ -71,7 +71,32 @@ public class WordNodeTest {
 
 
     }
+    @Test
+    public void identifyTop3_2(){
+        insertData();
+        List<WordRank> expected = ImmutableList.of(tea,tep);
+        List<WordRank> result = dictionary.getTop2At("te");
+        assertThat(result.size()).isEqualTo(2);
+        for(WordRank wordRank : result){
+            assertThat(expected.contains(wordRank)).isTrue();
+        }
 
+
+    }
+
+    @Test
+    public void identifyTop3_3(){
+        insertData();
+        List<WordRank> expected = ImmutableList.of(tee);
+        List<WordRank> result = dictionary.getTop2At("tee");
+        assertThat(result.size()).isEqualTo(1);
+        for(WordRank wordRank : result){
+            assertThat(expected.contains(wordRank)).isTrue();
+        }
+        assertThat(dictionary.getTop2At("top")).isEqualTo(ImmutableList.of(top));
+
+
+    }
     private void insertData() {
 
         dictionary.insert(button.word, button.rank);
