@@ -46,6 +46,19 @@ class WordRank implements Comparable<WordRank>{
 
     }
     @Override
+    public boolean equals(Object o){
+        if(!(o instanceof WordRank)){
+            return false;
+        }
+        WordRank that = (WordRank)o;
+        return that.word.equals(word) && that.rank == rank;
+    }
+
+    @Override
+    public int hashCode(){
+        return rank*10+ word.hashCode();
+    }
+    @Override
     public int compareTo(WordRank o) {
           return o.rank - rank;
     }
