@@ -25,7 +25,7 @@ public class WordNodeTest {
         dictionary.insert("tea",34);
         dictionary.insert("yeshu",1);
         dictionary.printDictionary();
-        assertThat(dictionary.countNodes()).isEqualTo(10);
+        assertThat(dictionary.countNodes()).isEqualTo(13);
         assertThat(dictionary.isWord("tower")).isTrue();
         assertThat(dictionary.isWord("tea")).isTrue();
         assertThat(dictionary.isWord("yeshu")).isTrue();

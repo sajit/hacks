@@ -11,7 +11,7 @@ public class Dictionary {
     WordNode root = new WordNode("");
 
     public void insert(String word,int rank){
-        doInsert(word,rank,1,root);
+        doInsert(word,rank,0,root);
     }
 
     public List<WordRank> getTop2At(String word){
@@ -47,7 +47,7 @@ public class Dictionary {
         char ch = word.charAt(idx);
         WordNode child = curNode.children[ch%26];
         if(child == null){
-            child = new WordNode(word.substring(0,idx));
+            child = new WordNode(word.substring(0,idx+1));
             //System.out.println("Child Node create " + child);
         }
         curNode.children[ch%26] = child;
@@ -56,7 +56,7 @@ public class Dictionary {
     }
 
     public boolean isWord(String word){
-        return doFind(word,1,root);
+        return doFind(word,0,root);
     }
 
     private boolean doFind(String word, int idx, WordNode currentNode) {
