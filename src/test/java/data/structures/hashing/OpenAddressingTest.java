@@ -8,7 +8,7 @@ import static org.fest.assertions.Assertions.assertThat;
 /**
  * Created by skunnumkal on 7/11/14.
  */
-public class OpenAddressingTests {
+public class OpenAddressingTest {
 
     OpenAddress oa = new OpenAddress(10);
     @Before
