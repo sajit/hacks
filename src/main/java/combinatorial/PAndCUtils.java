@@ -16,7 +16,7 @@ public class PAndCUtils {
     public static Set<Set<Integer>> intCombos(List<Integer> ints){
 
         Set<Set<Integer>> resultSet = new HashSet<Set<Integer>>();
-        doIntCombos(ints,resultSet);
+        doIntCombos(ints, resultSet);
         return resultSet;
     }
 
@@ -113,6 +113,36 @@ public class PAndCUtils {
 
     }
 
+    public static List<String> recursivePerms(String s){
+        if(s.length()==1){
+            return ImmutableList.of(s);
+        }
+        else{
+            char head = s.charAt(0);
+            String tail = s.substring(1);
+            List<String> intermediate = recursivePerms(tail);
+            return meshCharIntoList(head,intermediate);
+        }
+    }
+
+    private static List<String> meshCharIntoList(char ch, List<String> aList) {
+        List<String> output = new ArrayList<>();
+        for(String word : aList){
+            List<String> innerList = new ArrayList<>();
+            //System.out.println("Current word " + word);
+            for(int i=0;i<=word.length();i++){
+                String prefix = word.substring(0,i);
+                String suffix = word.substring(i);
+                //System.out.println("Prefix " + prefix + ",Suffix " + suffix );
+                String outputWord = prefix + ch + suffix;
+                //System.out.println("Output word " + outputWord);
+                innerList.add(outputWord);
+            }
+            output.addAll(innerList);
+        }
+        return output;
+    }
+
     public static void main(String[] args){
 
 
@@ -122,6 +152,11 @@ public class PAndCUtils {
         List<String> result = PAndCUtils.permutations("abc");
         for(String resultIn : result){
             System.out.print(" " + resultIn);
+        }
+        System.out.println("*********************************************");
+        List<String> abd = PAndCUtils.recursivePerms("abc");
+        for(String aString : abd){
+            System.out.print(" " + aString);
         }
     }
 }
