@@ -12,15 +12,16 @@ public class PAndCUtils {
 
     private static int duplicateCount = 0;
 
-    static Set<Set<Integer>> resultSet = new HashSet<Set<Integer>>();
+
     public static Set<Set<Integer>> intCombos(List<Integer> ints){
 
-        doIntCombos(ints);
+        Set<Set<Integer>> resultSet = new HashSet<Set<Integer>>();
+        doIntCombos(ints,resultSet);
         return resultSet;
     }
 
-    private static void doIntCombos(List<Integer> integers) {
-        resultSet.add(new HashSet<Integer>(integers));
+    private static void doIntCombos(List<Integer> integers,Set<Set<Integer>> soFar) {
+        soFar.add(new HashSet<Integer>(integers));
         if(integers.size()<=1){
             return;
         }
@@ -32,13 +33,13 @@ public class PAndCUtils {
             remaining.addAll(prefix);
             remaining.addAll(suffix);
             
-            doIntCombos(remaining);
+            doIntCombos(remaining,soFar);
         }
 
-        for(Set<Integer> aSet : resultSet){
+        for(Set<Integer> aSet : soFar){
             System.out.print(aSet + " ");
         }
-        System.out.println("**" + resultSet.size());
+        System.out.println("**" + soFar.size());
 
     }
 
@@ -113,19 +114,14 @@ public class PAndCUtils {
     }
 
     public static void main(String[] args){
-//        Set<String> result = PAndCUtils.combos("abc");
-//        for(String a : result){
-//            System.out.print( " " + a);
-//        }
-//        System.out.println("# of combinations = " + result.size());
-//        System.out.println("++++++++++++++++++++++++++");
-//
-//        System.out.println("# of times duplicates were attempted to be added " + duplicateCount);
 
-        List<Integer> ints = ImmutableList.of(1,5,7);
-        Set<Set<Integer>> result = PAndCUtils.intCombos(ints);
-//        for(Set<Integer> aSet : result){
-//            System.out.println(aSet);
-//        }
+
+//        List<Integer> ints = ImmutableList.of(1,5,7,3);
+//        Set<Set<Integer>> result = PAndCUtils.intCombos(ints);
+//
+        List<String> result = PAndCUtils.permutations("abc");
+        for(String resultIn : result){
+            System.out.print(" " + resultIn);
+        }
     }
 }
