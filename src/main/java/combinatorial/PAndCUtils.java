@@ -12,15 +12,16 @@ public class PAndCUtils {
 
     private static int duplicateCount = 0;
 
-    static Set<Set<Integer>> resultSet = new HashSet<Set<Integer>>();
+
     public static Set<Set<Integer>> intCombos(List<Integer> ints){
 
-        doIntCombos(ints);
+        Set<Set<Integer>> resultSet = new HashSet<Set<Integer>>();
+        doIntCombos(ints, resultSet);
         return resultSet;
     }
 
-    private static void doIntCombos(List<Integer> integers) {
-        resultSet.add(new HashSet<Integer>(integers));
+    private static void doIntCombos(List<Integer> integers,Set<Set<Integer>> soFar) {
+        soFar.add(new HashSet<Integer>(integers));
         if(integers.size()<=1){
             return;
         }
@@ -32,13 +33,13 @@ public class PAndCUtils {
             remaining.addAll(prefix);
             remaining.addAll(suffix);
             
-            doIntCombos(remaining);
+            doIntCombos(remaining,soFar);
         }
 
-        for(Set<Integer> aSet : resultSet){
+        for(Set<Integer> aSet : soFar){
             System.out.print(aSet + " ");
         }
-        System.out.println("**" + resultSet.size());
+        System.out.println("**" + soFar.size());
 
     }
 
@@ -112,20 +113,50 @@ public class PAndCUtils {
 
     }
 
-    public static void main(String[] args){
-//        Set<String> result = PAndCUtils.combos("abc");
-//        for(String a : result){
-//            System.out.print( " " + a);
-//        }
-//        System.out.println("# of combinations = " + result.size());
-//        System.out.println("++++++++++++++++++++++++++");
-//
-//        System.out.println("# of times duplicates were attempted to be added " + duplicateCount);
+    public static List<String> recursivePerms(String s){
+        if(s.length()==1){
+            return ImmutableList.of(s);
+        }
+        else{
+            char head = s.charAt(0);
+            String tail = s.substring(1);
+            List<String> intermediate = recursivePerms(tail);
+            return meshCharIntoList(head,intermediate);
+        }
+    }
 
-        List<Integer> ints = ImmutableList.of(1,5,7);
-        Set<Set<Integer>> result = PAndCUtils.intCombos(ints);
-//        for(Set<Integer> aSet : result){
-//            System.out.println(aSet);
-//        }
+    private static List<String> meshCharIntoList(char ch, List<String> aList) {
+        List<String> output = new ArrayList<>();
+        for(String word : aList){
+            List<String> innerList = new ArrayList<>();
+            //System.out.println("Current word " + word);
+            for(int i=0;i<=word.length();i++){
+                String prefix = word.substring(0,i);
+                String suffix = word.substring(i);
+                //System.out.println("Prefix " + prefix + ",Suffix " + suffix );
+                String outputWord = prefix + ch + suffix;
+                //System.out.println("Output word " + outputWord);
+                innerList.add(outputWord);
+            }
+            output.addAll(innerList);
+        }
+        return output;
+    }
+
+    public static void main(String[] args){
+
+
+//        List<Integer> ints = ImmutableList.of(1,5,7,3);
+//        Set<Set<Integer>> result = PAndCUtils.intCombos(ints);
+//
+        List<String> result = PAndCUtils.permutations("abc");
+        for(String resultIn : result){
+            System.out.print(" " + resultIn);
+        }
+        System.out.println("*********************************************");
+        List<String> abd = PAndCUtils.recursivePerms("abc");
+        for(String aString : abd){
+            System.out.print(" " + aString);
+        }
     }
 }
