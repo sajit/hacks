@@ -20,6 +20,16 @@ public class SearchUtils {
 
     }
 
+    public static void inOrder(TreeNode node){
+        if(node.left != null){
+            inOrder(node.left);
+        }
+        System.out.println(node.value);
+        if(node.right != null){
+            inOrder(node.right);
+        }
+    }
+
     private static void init(TreeNode node) {
         if(node ==null){
             throw new IllegalArgumentException("Null node");
@@ -66,5 +76,20 @@ public class SearchUtils {
         if(node.right != null){
             reset(node.right);
         }
+    }
+
+    public static TreeNode findNode(TreeNode currentNode,int value) {
+        TreeNode result = null;
+        if(currentNode.value == value){
+            result = currentNode;
+        }
+        if(result == null && currentNode.left != null){
+            result = findNode(currentNode.left,value);
+
+        }
+        if(result == null && currentNode.right != null){
+            result = findNode(currentNode.right,value);
+        }
+        return result;
     }
 }
