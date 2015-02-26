@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class DirectedGraph {
 
-    List<Vertex> vertexList = new ArrayList<Vertex>();
+    List<Vertex> vertexList = new ArrayList<>();
 
 
     public void addVertex(String vertexName){
@@ -51,6 +51,16 @@ public class DirectedGraph {
         }
 
         return null;
+    }
+
+    public boolean isConnectedGraph(){
+        for(Vertex vertex : vertexList){
+            if(vertex.edgeList.isEmpty() || (vertex.edgeList.size()==1 && vertex.edgeList.get(0).isSelfEdge())){
+                return false;
+            }
+
+        }
+        return true;
     }
 
 

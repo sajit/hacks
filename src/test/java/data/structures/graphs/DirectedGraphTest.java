@@ -25,6 +25,7 @@ public class DirectedGraphTest {
         dg.addEdge(b,3,c);
         dg.addEdge(c,1,b);
         dg.addEdge(e,8,a);
+
     }
     @Test
     public void vertexCount(){
@@ -46,6 +47,16 @@ public class DirectedGraphTest {
     @Test
     public void getConnected(){
         assertThat(dg.getConnected(a)).isEqualTo(ImmutableList.of(Vertex.of(c)));
+    }
+
+    @Test
+    public void unConnectedGraphIsNotConnected(){
+
+        assertThat(dg.isConnectedGraph()).isFalse();
+        dg.addEdge(d,10,d);
+        assertThat(dg.isConnectedGraph()).isFalse();
+        dg.addEdge(d,10,e);
+        assertThat(dg.isConnectedGraph()).isTrue();
     }
 
 }

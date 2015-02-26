@@ -14,6 +14,10 @@ public class Edge {
         this.to = to;
     }
 
+    public boolean isSelfEdge(){
+        return from.equals(to);
+    }
+
     @Override
     public boolean equals(Object obj){
         if(!(obj instanceof Edge)){
