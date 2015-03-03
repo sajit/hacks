@@ -66,7 +66,7 @@ public class DirectedGraph {
     }
 
     public Set<String> dfs(Vertex currentVertex,Set<String> visitedSoFar){
-        System.out.print(" " + currentVertex);
+        //System.out.print(" " + currentVertex);
         visitedSoFar.add(currentVertex.name);
 
         for(Edge connectedEdge : currentVertex.edgeList){
@@ -85,6 +85,66 @@ public class DirectedGraph {
             }
         }
         return null;
+    }
+
+    //TODO improve efficiency of this
+    public List<Set<String>> disjointSets(){
+        List<Set<String>> result = new ArrayList<>();
+
+        for(Vertex vertex : vertexList){
+            Set<String> soFar = new HashSet<>();
+            Set<String> connectedVertices = dfs(vertex,soFar);
+            result.add(connectedVertices);
+        }
+
+        return mergeSets(result);
+    }
+
+    private List<Set<String>> mergeSets(List<Set<String>> sets) {
+        if(sets.size() < 2){
+            return sets;
+        }
+        List<Set<String>> mergedResults = new ArrayList<>();
+        Set<String> set1 = sets.get(0);
+        Set<String> set2 = sets.get(1);
+        if(hasCommon(set1, set2)){
+            mergedResults.add(merge(set1,set2));
+
+        }
+        else{
+            mergedResults.add(set1);
+            mergedResults.add(set2);
+        }
+        for(int i=2;i<sets.size();i++){
+            Set<String> inp = sets.get(i);
+            Set<String> commonMergedSet = hasCommonWith(mergedResults,inp);
+            if(commonMergedSet != null)
+               commonMergedSet.addAll(inp);
+            else
+                mergedResults.add(inp);
+        }
+        return mergedResults;
+    }
+
+    private Set<String> hasCommonWith(List<Set<String>> results, Set<String> set) {
+        for(Set<String> aResult : results){
+            if(hasCommon(aResult,set)){
+                return aResult;
+            }
+        }
+        return null;
+    }
+
+    private Set<String> merge(Set<String> set1, Set<String> set2) {
+        Set<String> union = new HashSet<>(set1);
+        union.addAll(set2);
+        return union;
+    }
+
+    private boolean hasCommon(Set<String> set1, Set<String> set2) {
+        Set<String> intersection  = new HashSet<>(set1);
+        intersection.retainAll(set2);
+        return !intersection.isEmpty();
     }
 
 

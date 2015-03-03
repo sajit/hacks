@@ -64,22 +64,22 @@ public class DirectedGraphTest {
         assertThat(dg.isConnectedGraph()).isTrue();
     }
 
-//    @Test
-//    public void testDisjoint(){
-//        Set<Set<String>> disjointSets = dg.getDisjointSets();
-//        for(Set<String> aDisjointSet : disjointSets){
-//            System.out.println(aDisjointSet);
-//        }
-//        assertThat(disjointSets.size()).isEqualTo(2);
-//        for(Set<String> aSet : disjointSets){
-//            if(aSet.size()==4){
-//                assertThat(aSet).isEqualTo(ImmutableSet.of(a, b, c, e));
-//            }
-//            if(aSet.size()==1){
-//                assertThat(aSet).isEqualTo(ImmutableSet.of(d));
-//            }
-//        }
-//    }
+    @Test
+    public void testDisjoint(){
+        List<Set<String>> disjointSets = dg.disjointSets();
+        for(Set<String> aDisjointSet : disjointSets){
+            System.out.println(aDisjointSet);
+        }
+        assertThat(disjointSets.size()).isEqualTo(2);
+        for(Set<String> aSet : disjointSets){
+            if(aSet.size()==4){
+                assertThat(aSet).isEqualTo(ImmutableSet.of(a, b, c, e));
+            }
+            if(aSet.size()==1){
+                assertThat(aSet).isEqualTo(ImmutableSet.of(d));
+            }
+        }
+    }
 
     @Test
     public void testDfs(){
