@@ -90,11 +90,19 @@ public class DirectedGraph {
     //TODO improve efficiency of this
     public List<Set<String>> disjointSets(){
         List<Set<String>> result = new ArrayList<>();
+        Set<String> concatenatedVertexNames = new HashSet<>();
 
         for(Vertex vertex : vertexList){
-            Set<String> soFar = new HashSet<>();
-            Set<String> connectedVertices = dfs(vertex,soFar);
-            result.add(connectedVertices);
+            boolean isAlreadyVisited = concatenatedVertexNames.stream().filter(aConcatenatedVertexName -> aConcatenatedVertexName.contains(vertex.name)).count() > 0;
+            if(!isAlreadyVisited){
+                Set<String> connectedVertices = dfs(vertex, new HashSet<>());
+                String concatNames = connectedVertices.stream().reduce("",(String s,String aVertexName) -> s + aVertexName);
+                concatenatedVertexNames.add(concatNames);
+                result.add(connectedVertices);
+            }
+
+
+
         }
 
         return mergeSets(result);
