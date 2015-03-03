@@ -1,5 +1,7 @@
 package data.structures.graphs;
 
+import com.google.common.collect.ImmutableSet;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -61,6 +63,28 @@ public class DirectedGraph {
 
         }
         return true;
+    }
+
+    public Set<String> dfs(Vertex currentVertex,Set<String> visitedSoFar){
+        System.out.print(" " + currentVertex);
+        visitedSoFar.add(currentVertex.name);
+
+        for(Edge connectedEdge : currentVertex.edgeList){
+            if(!visitedSoFar.contains(connectedEdge.to)){
+                dfs(getByName(connectedEdge.to),visitedSoFar);
+            }
+        }
+        return visitedSoFar;
+    }
+
+    public Vertex getByName(String vertexName) {
+
+        for(Vertex vertex : vertexList){
+            if(vertex.name.equals(vertexName)){
+                return vertex;
+            }
+        }
+        return null;
     }
 
 

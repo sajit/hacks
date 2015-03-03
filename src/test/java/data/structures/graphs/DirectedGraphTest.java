@@ -1,8 +1,13 @@
 package data.structures.graphs;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -57,6 +62,30 @@ public class DirectedGraphTest {
         assertThat(dg.isConnectedGraph()).isFalse();
         dg.addEdge(d,10,e);
         assertThat(dg.isConnectedGraph()).isTrue();
+    }
+
+//    @Test
+//    public void testDisjoint(){
+//        Set<Set<String>> disjointSets = dg.getDisjointSets();
+//        for(Set<String> aDisjointSet : disjointSets){
+//            System.out.println(aDisjointSet);
+//        }
+//        assertThat(disjointSets.size()).isEqualTo(2);
+//        for(Set<String> aSet : disjointSets){
+//            if(aSet.size()==4){
+//                assertThat(aSet).isEqualTo(ImmutableSet.of(a, b, c, e));
+//            }
+//            if(aSet.size()==1){
+//                assertThat(aSet).isEqualTo(ImmutableSet.of(d));
+//            }
+//        }
+//    }
+
+    @Test
+    public void testDfs(){
+        Vertex aVertex = dg.getByName(a);
+        Set<String> vertices = dg.dfs(aVertex,new HashSet<>());
+        assertThat(vertices).isEqualTo(ImmutableSet.of(a,b,c));
     }
 
 }
