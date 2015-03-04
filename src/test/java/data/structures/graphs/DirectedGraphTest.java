@@ -110,4 +110,19 @@ public class DirectedGraphTest {
         }
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testTopologicalSort(){
+        dg.topologicalSort(dg.getByName(e));
+    }
+
+    @Test
+    public void topologicalSortAcyclic(){
+        String g = "gString";
+        dg.addVertex(g);
+        dg.addEdge(d,9,g);
+
+        List<String> result = dg.topologicalSort(dg.getByName(d));
+        assertThat(result).isEqualTo(ImmutableList.of(g,d));
+    }
+
 }

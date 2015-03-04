@@ -155,5 +155,25 @@ public class DirectedGraph {
         return !intersection.isEmpty();
     }
 
+    public List<String> topologicalSort(Vertex startingVertex){
+        return doTopologicalSort(startingVertex,new HashSet<String>(),new ArrayList<>());
+
+    }
+
+    private List<String> doTopologicalSort(Vertex vertex, Set<String> visited,List<String> marked) {
+        visited.add(vertex.name);
+        for(Edge connectedEdge : vertex.edgeList){
+            Vertex connectedVertex = getByName(connectedEdge.to);
+            if(visited.contains(connectedVertex.name) && !marked.contains(connectedVertex.name)){
+                throw new RuntimeException("Cyclic graph .. cannot topological sort");
+
+            }
+            if(!visited.contains(connectedVertex.name)){
+                doTopologicalSort(connectedVertex,visited,marked);
+            }
+        }
+        marked.add(vertex.name);
+        return marked;
+    }
 
 }
