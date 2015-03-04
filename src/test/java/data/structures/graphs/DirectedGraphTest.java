@@ -125,4 +125,14 @@ public class DirectedGraphTest {
         assertThat(result).isEqualTo(ImmutableList.of(g,d));
     }
 
+    @Test
+    public void topologicalSortAcyclic1(){
+        String g = "gString";
+        dg.addVertex(g);
+        dg.addEdge(d,9,g);
+
+        List<String> result = dg.topologicalSort(dg.getByName(g));
+        assertThat(result).isEqualTo(ImmutableList.of(g));
+    }
+
 }
