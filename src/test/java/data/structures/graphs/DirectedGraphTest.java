@@ -88,4 +88,51 @@ public class DirectedGraphTest {
         assertThat(vertices).isEqualTo(ImmutableSet.of(a,b,c));
     }
 
+    @Test
+    public void testDisjoint1(){
+        String g = "marantha";
+        dg.addVertex(g);
+        List<Set<String>> disjointSets = dg.disjointSets();
+        for(Set<String> aDisjointSet : disjointSets){
+            System.out.println(aDisjointSet);
+        }
+        assertThat(disjointSets.size()).isEqualTo(3);
+        for(Set<String> aSet : disjointSets){
+            if(aSet.size()==4){
+                assertThat(aSet).isEqualTo(ImmutableSet.of(a, b, c, e));
+            }
+            if(aSet.size()==1){
+                String singleVertex = aSet.iterator().next();
+                Set<String> singleVertices = ImmutableSet.of(g,d);
+                assertThat(singleVertices.contains(singleVertex)).isTrue();
+
+            }
+        }
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testTopologicalSort(){
+        dg.topologicalSort(dg.getByName(e));
+    }
+
+    @Test
+    public void topologicalSortAcyclic(){
+        String g = "gString";
+        dg.addVertex(g);
+        dg.addEdge(d,9,g);
+
+        List<String> result = dg.topologicalSort(dg.getByName(d));
+        assertThat(result).isEqualTo(ImmutableList.of(g,d));
+    }
+
+    @Test
+    public void topologicalSortAcyclic1(){
+        String g = "gString";
+        dg.addVertex(g);
+        dg.addEdge(d,9,g);
+
+        List<String> result = dg.topologicalSort(dg.getByName(g));
+        assertThat(result).isEqualTo(ImmutableList.of(g));
+    }
+
 }
