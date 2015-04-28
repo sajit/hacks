@@ -20,4 +20,12 @@ public class LCS {
 
         return t[a.length()][b.length()];
     }
+
+    public static void main(String[] args){
+        String a = "soju";
+        String b = "jponnu";
+
+        System.out.println(LCS.lengthLCS(a,b));
+
+    }
 }
