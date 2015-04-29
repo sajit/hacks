@@ -13,6 +13,10 @@ public class ShapeFactory {
     private ShapeFactory(){
     }
 
+    /**
+     * This also illustrates the singleton design pattern
+     * @return
+     */
     public static ShapeFactory getInstance(){
         if(factory == null){
             factory = new ShapeFactory();
