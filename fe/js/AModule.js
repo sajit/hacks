@@ -8,5 +8,11 @@ var MODULE = (function () {
     console.log('Jesus please forgive me:: A module');
 }());
 var CROSS_MODULE = (function(my){
+    console.log('In cross module');
     my.property = 1;
+    my.init = function(initObj){
+
+    };
+
+    return my;
 })(CROSS_MODULE || {});
