@@ -31,3 +31,5 @@ var CROSS_MODULE = (function(my){
 
     return my;
 })(CROSS_MODULE || {});
+module.exports = CROSS_MODULE;
+//module.exports = MODULE;
