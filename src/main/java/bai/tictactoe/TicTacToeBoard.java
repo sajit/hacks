@@ -5,19 +5,19 @@ package bai.tictactoe;
  */
 public class TicTacToeBoard {
 
-    private TicTacToeCell[] board;
+    private Cell[] board;
 
     public TicTacToeBoard(){
-        board = new TicTacToeCell[9];
-        board[0] = new TicTacToeCell(3);
-        board[1] = new TicTacToeCell(2);
-        board[2] = new TicTacToeCell(3);
-        board[3] = new TicTacToeCell(2);
-        board[4] = new TicTacToeCell(4);
-        board[5] = new TicTacToeCell(2);
-        board[6] = new TicTacToeCell(3);
-        board[7] = new TicTacToeCell(2);
-        board[8] = new TicTacToeCell(3);
+        board = new Cell[9];
+        board[0] = new Cell(3);
+        board[1] = new Cell(2);
+        board[2] = new Cell(3);
+        board[3] = new Cell(2);
+        board[4] = new Cell(4);
+        board[5] = new Cell(2);
+        board[6] = new Cell(3);
+        board[7] = new Cell(2);
+        board[8] = new Cell(3);
 
     }
 
