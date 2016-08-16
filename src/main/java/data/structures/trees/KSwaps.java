@@ -1,10 +1,19 @@
 package data.structures.trees;
 
-/**
- * Created by sajit on 2/14/15.
- */
+
 public class KSwaps {
 
+    /**
+     * https://www.hackerrank.com/challenges/swap-nodes-algo
+     *                     1                                           1
+     *                    /  \                                       /   \
+     *                   2    3                                     3      2
+     *                  /  \    \                                  /      / \
+     *                 7    4    5     == [4,1,3,2] ==>           5      4    7
+     *                  \                                                      \
+     *                   16                                                     16
+     * @param args
+     */
     public static void main(String[] args){
 
         TreeNode root = new TreeNode(1,new TreeNode(2,new TreeNode(7,null,new TreeNode(16)),
