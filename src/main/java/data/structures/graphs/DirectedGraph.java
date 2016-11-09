@@ -39,6 +39,8 @@ public class DirectedGraph {
 
     }
 
+
+
     public List<Vertex> getConnected(String fromVertex){
         Vertex from = Vertex.of(fromVertex);
         for(Vertex aVertex : vertexList){
@@ -156,7 +158,7 @@ public class DirectedGraph {
     }
 
     public List<String> topologicalSort(Vertex startingVertex){
-        return doTopologicalSort(startingVertex,new HashSet<String>(),new ArrayList<>());
+        return doTopologicalSort(startingVertex,new HashSet<String>(),new ArrayList());
 
     }
 
@@ -176,4 +178,11 @@ public class DirectedGraph {
         return marked;
     }
 
+    public int getEdgeCount() {
+        Set<Edge> uniqueEdges = new HashSet<>();
+        for(Vertex v : vertexList){
+            uniqueEdges.addAll(v.edgeList);
+        }
+        return uniqueEdges.size();
+    }
 }
