@@ -31,7 +31,7 @@ public class AsyncControlSystem {
                 int i = Integer.parseInt(s);
                 queue.add(Message.of(null,Integer.valueOf(i)));
                 ElevatorCallable asyncElevator = new ElevatorCallable(elevator,Integer.valueOf(i));
-                FutureTask moveElevatorTask = new FutureTask(asyncElevator);
+                FutureTask<ElevatorCallable> moveElevatorTask = new FutureTask<ElevatorCallable>(asyncElevator);
 
                 executor.execute(moveElevatorTask);
 

@@ -43,4 +43,13 @@ public class Vertex {
     public String toString(){
         return name;
     }
+
+    public int getWeightTo( String toVertexName){
+        for(Edge edge : edgeList){
+            if(edge.from.equals(name) && edge.to.equals(toVertexName)){
+                return edge.weight;
+            }
+        }
+        return Integer.MAX_VALUE;
+    }
 }
