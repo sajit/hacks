@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.rawgit.com/kriskowal/q/v1/q.js"></script>
+</head>
+<body>
+ <script type="text/javascript">
+
+     (function main(){
+         var f1 = function(){
+             var deferred = Q.defer();
+             setTimeout(function() { deferred.resolve({name: 'slow_learner'}); }, 5000);
+             return deferred.promise;
+         };
+         var f2 = function(){
+             var deferred = Q.defer();
+             setTimeout(function() { deferred.resolve({age: 34}); }, 2000);
+             return deferred.promise;
+         };
+         f1().then(function(data){
+             console.log(' Name is ' + data.name);
+         });
+         f2().then(function(data){
+            console.log('Age is ' + data.age);
+         });
+         setTimeout(function(){
+             console.log('In the below example, we will chain f1 and f2. Since f2 is resolved only after f1, we will always see name being printed first');
+             f1().
+             then(function(data){
+                 console.log('Name is '+ data.name);
+                 return f2();
+             }).
+             then(function(data){
+                console.log('Now resolve f2. Age is ' + data.age);
+             });
+         },8000);
+        console.log('Following are equivalent to part 1 where we add promises to an array');
+         var promiseArr = Q.all([
+             f1(),
+             f2()
+         ]);
+         Q.allSettled(promiseArr)
+                 .then(function (results) {
+                     results.forEach(function (result) {
+                         console.log('Result =',result.value);
+                     });
+                 });
+     }());
+ </script>
+</body>
+</html>
