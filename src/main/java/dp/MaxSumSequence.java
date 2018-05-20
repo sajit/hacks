@@ -18,4 +18,20 @@ public class MaxSumSequence {
         }
         return max;
     }
+
+    public static int maxSumR(int[] arr,int idx,int globalMax,int currentSum){
+        if(idx>=arr.length) return globalMax;
+        int newMax = currentSum + arr[idx];
+        if(newMax<0) newMax = 0;
+        if(newMax>globalMax){
+            globalMax = newMax;
+        }
+        return maxSumR(arr,idx+1,globalMax,newMax);
+
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {6,-13,1,7,-5,-9,19};
+        System.out.println(maxSumR(arr,1,arr[0],arr[0]));
+    }
 }

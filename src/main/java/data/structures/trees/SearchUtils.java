@@ -66,6 +66,10 @@ public class SearchUtils {
         reset(root);
         System.out.println("------------------");
         BFS(root);
+
+        BST bst = TreeUtils.createBST(8);
+        DFS(bst.root);
+        System.out.println("5th largest in tree "+ bst.findNthLargest(bst.root,5));
     }
 
     private static void reset(TreeNode node) {
@@ -92,4 +96,5 @@ public class SearchUtils {
         }
         return result;
     }
+
 }

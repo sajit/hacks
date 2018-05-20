@@ -1,6 +1,8 @@
 package data.structures.trees;
 
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Created by skunnumkal on 6/28/14.
@@ -122,4 +124,28 @@ public class BST {
     private boolean isLeftChild(TreeNode aNode) {
         return aNode.value < aNode.parent.value;
     }
+
+
+    public int findNthLargest(TreeNode node,int n){
+        Pair<TreeNode,Integer> pair = findLargest(node);
+        if(n>=0){
+
+            return pair.getRight();
+        }
+        if(pair.getRight()==node.value) { //root is biggest value, next consider left branch
+           node = node.left;
+        }
+        else
+            node.right = pair.getLeft();
+        return findNthLargest(node,n-1);
+    }
+
+    private Pair<TreeNode, Integer> findLargest(TreeNode node) {
+        while(node!= null && node.right!=null){
+            return findLargest(node.right);
+        }
+        return new ImmutablePair<>(node.left,node.value);
+    }
+
+
 }
