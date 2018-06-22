@@ -9,13 +9,20 @@ import java.util.List;
 public class HorseMan {
 
     private final int size = 8;
-    private boolean[][] visited = new boolean[size][size];
     private int[][] visitCount = new int[size][size];
+    private Cell[][] board = new Cell[size][size];
+    public HorseMan() {
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                board[i][j] = new Cell(i,j);
+            }
+        }
+    }
     public static int count = 0;
     public boolean isTourComplete(){
-        for(int i=0;i<visited.length;i++)
-            for(int j=0;j<visited[i].length;j++){
-                if(!visited[i][j]){
+        for(int i=0;i<board.length;i++)
+            for(int j=0;j<board[i].length;j++){
+                if(!board[i][j].visited){
                     return false;
                 }
             }
@@ -23,12 +30,12 @@ public class HorseMan {
         return true;
     }
     public boolean traverse(int x,int y,int moveCount){
-        //print();
-        visited[x][y] = true;
+
+        board[x][y].visited = true;
         visitCount[x][y] = moveCount;
         if(isTourComplete()){
             System.out.println("Found a valid tour" + count++);
-            print();
+            //print();
             return true;
         }
         List<Cell> possibleNextMoves = validNextMoves(x,y);
@@ -36,25 +43,31 @@ public class HorseMan {
 
         for(Cell cell : possibleNextMoves){
 
-            traverse(cell.x,cell.y,moveCount+1);
+            if(traverse(cell.x,cell.y,moveCount+1)){
+                return true;
+            }
+            else {
+                //reset backtrack
+                board[x][y].visited=false;
+                visitCount[x][y] = -1;
+            }
         }
-        visited[x][y]=false;
-        visitCount[x][y] = -1;
+
         return false;
     }
 
     public void print(){
-        for(int i=0;i<visited.length;i++){
-            for(int j=0;j<visited[i].length;j++){
-                String yes = (visited[i][j])? "X" : "";
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[i].length;j++){
+                String yes = (board[i][j].visited)? "X" : "";
                 System.out.print(" | " + yes);
             }
             System.out.println();
 
         }
         System.out.println("---------------------------------------");
-        for(int i=0;i<visited.length;i++){
-            for(int j=0;j<visited[i].length;j++){
+        for(int i=0;i<visitCount.length;i++){
+            for(int j=0;j<visitCount[i].length;j++){
 
                 System.out.print(" " + visitCount[i][j]);
             }
@@ -76,31 +89,31 @@ public class HorseMan {
          List<Cell> result = new ArrayList<>();
 
         //top left
-        if(x<(size-2) && y<(size-1) && !visited[x+2][y+1]){
+        if(x<(size-2) && y<(size-1) && !board[x+2][y+1].visited){
             result.add(Cell.of(x+2,y+1));
         }
-        if(x<(size-1) && y<(size-2) && !visited[x+1][y+2]){
+        if(x<(size-1) && y<(size-2) && !board[x+1][y+2].visited){
             result.add(Cell.of(x+1,y+2));
         }
         //top right
-        if(x>=2 && y<(size-1) && !visited[x-2][y+1]){
+        if(x>=2 && y<(size-1) && !board[x-2][y+1].visited){
             result.add(Cell.of(x-2,y+1));
         }
-        if(x>=1 && y<(size-2) && !visited[x-1][y+2]){
+        if(x>=1 && y<(size-2) && !board[x-1][y+2].visited){
             result.add(Cell.of(x-1,y+2));
         }
         //bottom right
-        if(x>=2 && y>=1 && !visited[x-2][y-1]){
+        if(x>=2 && y>=1 && !board[x-2][y-1].visited){
             result.add(Cell.of(x-2,y-1));
         }
-        if(x>=1 && y>=2 && !visited[x-1][y-2]){
+        if(x>=1 && y>=2 && !board[x-1][y-2].visited){
             result.add(Cell.of(x-1,y-2));
         }
         //bottom left
-        if(x<(size-2) && y>=1 && !visited[x+2][y-1]){
+        if(x<(size-2) && y>=1 && !board[x+2][y-1].visited){
             result.add(Cell.of(x+2,y-1));
         }
-        if(x<(size-1) && y>=2 && !visited[x+1][y-2]){
+        if(x<(size-1) && y>=2 && !board[x+1][y-2].visited){
             result.add(Cell.of(x+1,y-2));
         }
 
@@ -111,6 +124,7 @@ public class HorseMan {
 }
 class Cell{
     public final int x,y;
+    public boolean visited= false;
 
     public Cell(int x,int y){
         this.x = x;this.y = y;
