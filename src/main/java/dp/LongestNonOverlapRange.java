@@ -33,7 +33,7 @@ public class LongestNonOverlapRange {
         }
         int max = Integer.MIN_VALUE;
         for(int i=0;i<maxIntervalSoFar.length;i++){
-            System.out.println("After.." + maxIntervalSoFar[i]);
+            System.out.println("After..i="+i+":" + maxIntervalSoFar[i]);
             if(max < maxIntervalSoFar[i]){
                 max = maxIntervalSoFar[i];
             }

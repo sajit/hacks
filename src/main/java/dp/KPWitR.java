@@ -29,4 +29,43 @@ public class KPWitR {
 
         return M[weightRemaining][3];
     }
+
+
+    static final int minusInf = -10000;
+    static int unboundedKnapsack(int k, int[] arr) {
+        //return k-unboundedKnapsackR(k,arr,arr.length-1);
+        return k-unboundedKnapsackDP(k,arr);
+
+    }
+    static int unboundedKnapsackR(int k, int[] arr,int i) {
+        if(k<0) return minusInf;
+        if(i<0) return minusInf;
+        if(k==0) return 0;
+        return Math.max(unboundedKnapsackR(k,arr,i-1),unboundedKnapsackR(k-arr[i],arr,i));
+
+    }
+
+    static int unboundedKnapsackDP(int k, int[] arr){
+        int[][] max_vals = new int[k+1][arr.length+1];
+        for(int j=1;j<max_vals[0].length;j++)max_vals[0][j]=0;
+        for(int i=0;i<max_vals.length;i++)max_vals[i][0]=minusInf;
+
+        for(int i=1;i<max_vals.length;i++){
+            for(int j=1;j<max_vals[i].length;j++){
+                if(i>=arr[j-1]){
+                    max_vals[i][j]=Math.max(max_vals[i][j-1],max_vals[i-arr[j-1]][j]);
+                }
+                else {
+                    max_vals[i][j] = Math.max(max_vals[i][j-1],minusInf);
+                }
+            }
+        }
+        return max_vals[k][arr.length];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(unboundedKnapsack(12,new int[]{3,6,9}));
+        System.out.println(unboundedKnapsack(9,new int[]{3,4,4,4,8}));
+    }
+
 }

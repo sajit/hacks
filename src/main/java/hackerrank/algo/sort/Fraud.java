@@ -6,12 +6,26 @@ import java.util.*;
 
 public class Fraud {
 
-    static double findMedian(int[] array){
-        if(array.length%2==0){
-            return (double)(array[array.length/2]+array[(array.length/2)-1])/(double)2;
+    public static double findMedian(int[] array, int d,Map<Integer,Integer> freqIdxExpenseMap){
+        int count=0;
+        int i=-1;
+        while(count<=d/2){
+            i++;
+            count += array[i];
+
+
+        }
+        if(d%2==0){
+            double mid1 = (double)freqIdxExpenseMap.get(i);
+            double mid2 = mid1;
+            if(array[i]<=1 && i>=1){
+                mid2 = (double)freqIdxExpenseMap.get(i-1);
+            }
+
+            return (mid1+mid2)/(double)2;
         }
         else{
-            return array[array.length/2];
+            return freqIdxExpenseMap.get(i);
         }
 
     }
@@ -20,68 +34,46 @@ public class Fraud {
     // Complete the activityNotifications function below.
     static int activityNotifications(int[] expenditure, int d) {
 
-        int count=0;
-        int[] workingArray = new int[d];
-        for(int i=0;i<d;i++){
-            workingArray[i]=expenditure[i];
-        }
-        workingArray = modifyArray(workingArray,null,null,d);
-        for(int i=d;i<expenditure.length;i++){
-            //constant
+        int[] sortedExpArr = Arrays.stream(expenditure).distinct().sorted().toArray();
+        //map of expenditure to its index in freq Map
+        Map<Integer,Integer> expenseIdxMap = new HashMap<>();
 
-            double median = findMedian(workingArray);
+        //Map of index in freq map to Expenditure
+        Map<Integer,Integer> freqIdxExpenseMap = new HashMap<>();
+        for(int i=0;i<sortedExpArr.length;i++){
+            expenseIdxMap.put(sortedExpArr[i],i);
+        }
+        int[] freqMap = new int[sortedExpArr.length];
+        int count=0;
+
+        for(int i=0;i<d;i++){
+            addToFreqMap(expenditure[i], expenseIdxMap.get(expenditure[i]), freqIdxExpenseMap, freqMap);
+        }
+
+        for(int i=d;i<expenditure.length;i++){
+
+            double median = findMedian(freqMap,d,freqIdxExpenseMap);
 
             if(expenditure[i]>=2*median){
                 count++;
             }
-            workingArray = modifyArray(workingArray,expenditure[i-d],expenditure[i],d);
+            addToFreqMap(expenditure[i],expenseIdxMap.get(expenditure[i]),freqIdxExpenseMap,freqMap);
+            int toBeRemovedExpense = expenditure[i-d];
+            int freqMapIdx = expenseIdxMap.get(toBeRemovedExpense);
+            freqMap[freqMapIdx] = freqMap[freqMapIdx]-1;
+
 
         }
         return count;
     }
 
-    private static int[] modifyArray(int[] workingArray, Integer toBeRemoved, Integer toBeAdded,int d) {
-        TreeMap<Integer,Integer> valueCountMap = new TreeMap<>();
-        for(int i=0;i<workingArray.length;i++){
-            Integer count = valueCountMap.get(workingArray[i]);
-            if(count==null){
-                count=0;
-            }
-            valueCountMap.put(workingArray[i],count+1);
-        }
-        if(toBeRemoved!=null){
-            Integer removedCount = valueCountMap.get(toBeRemoved);
-            if(removedCount>1){
-                valueCountMap.put(toBeRemoved,removedCount-1);
-            }
-            else{
-                valueCountMap.remove(toBeRemoved);
-            }
-        }
-        if(toBeAdded != null){
-            Integer addCount = valueCountMap.get(toBeAdded);
-            if(addCount==null){
-                valueCountMap.put(toBeAdded,1);
-            }
-            else{
-                valueCountMap.put(toBeAdded,addCount+1);
-            }
-
-        }
-
-
-        int[] newArr = new int[d];
-        int count=0;
-        for(Integer key : valueCountMap.keySet()){
-            int countVal = valueCountMap.get(key);
-            for(int j=0;j<countVal;j++){
-                newArr[count]=key;
-                count++;
-            }
-        }
-        return newArr;
-
+    private static void addToFreqMap(int expenditure, Integer freqMapIdx, Map<Integer, Integer> freqIdxExpenseMap, int[] freqMap) {
+        freqMap[freqMapIdx] = freqMap[freqMapIdx]+1;
+        freqIdxExpenseMap.put(freqMapIdx, expenditure);
     }
+
+
+
 
 
 
@@ -121,9 +113,14 @@ public class Fraud {
              e.printStackTrace();
          }
 
+//        int[] exp = {1,2,3,4,4};
+//        System.out.println(activityNotifications(exp,4));
+//        Map<Integer,Integer> map = new HashMap<>();
+//        map.put(0,2);
+//        map.put(1,3);
+//        map.put(2,4);
+//        map.put(3,5);
 
-
-
-
+        //System.out.println(findMedian(new int[]{3,1,1,1,0,0,0},6,map));
     }
 }
