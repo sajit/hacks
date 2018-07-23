@@ -3,6 +3,10 @@ package hackerrank.algo.ema.supercs;
 import java.util.*;
 
 class Line {
+    @Override
+    public String toString(){
+        return "[Start="+start+",End="+end+"]";
+    }
     public Line(Point start,Point end){
         this.start = start;
         this.end = end;
@@ -11,10 +15,10 @@ class Line {
 
     public int length() {
         if(start.x==end.x){
-            return Math.abs(start.y-end.y);
+            return Math.abs(start.y-end.y)+1;
         }
         else {
-            return Math.abs(start.x-end.x);
+            return Math.abs(start.x-end.x)+1;
         }
     }
 
@@ -24,7 +28,7 @@ class Line {
     public boolean intersects(Line other){
         if(this.isHorizontal()){
             if(other.isHorizontal()){
-                return this.start.y > other.end.y || this.end.y < other.start.y;
+                return !(this.start.y > other.end.y || this.end.y < other.start.y);
 
             }
             else {
@@ -36,7 +40,7 @@ class Line {
                 return other.start.y<=this.start.y && other.end.y>=this.end.y && this.start.x <= other.start.x && this.end.x >= other.end.x;
             }
             else {
-                return this.start.x > other.end.x || this.end.x < other.start.x;
+                return !(this.start.x > other.end.x || this.end.x < other.start.x);
             }
         }
     }
@@ -46,6 +50,10 @@ class Line {
     }
 }
 class Point {
+    @Override
+    public String toString(){
+        return x+"|"+y;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,6 +93,11 @@ class Plus{
                 || other.vertical.intersects(horizontal) || other.vertical.intersects(vertical);
     }
 
+    @Override
+    public String toString(){
+        return "Horizontal :"+horizontal+" Vertical"+vertical;
+    }
+
 }
 public class ValidPlus {
 
@@ -110,6 +123,7 @@ public class ValidPlus {
                         if(formsValidPlus(horizontalLine,verticalLine)){
                             if(biggestPlus==null){
                                 biggestPlus = new Plus(horizontalLine,verticalLine);
+                                System.out.println("Formed plus" + biggestPlus);
                             }
                             else {
                                 Plus nextBiggestPlus = new Plus(horizontalLine,verticalLine);
@@ -129,11 +143,14 @@ public class ValidPlus {
 
 
 
-    private static boolean formsValidPlus(Line line1, Line line2) {
-        if(line1.isHorizontal() && line2.isHorizontal()){
-            return false; //both horizontal
-        }
-        if(!line1.isHorizontal() && !line2.isHorizontal()){
+    public static boolean formsValidPlus(Line line1, Line line2) {
+//        if(line1.isHorizontal() && line2.isHorizontal()){
+//            return false; //both horizontal
+//        }
+//        if(!line1.isHorizontal() && !line2.isHorizontal()){
+//            return false;
+//        }
+        if(line1.length()%2==0 || line2.length()%2==0){
             return false;
         }
         if(line1.length()!=line2.length()){
@@ -142,9 +159,9 @@ public class ValidPlus {
         return line1.middle().equals(line2.middle());
     }
 
-    ;
 
-    private static Map<Integer,List<Line>> getHL(char[][] gridC) {
+
+    public static Map<Integer,List<Line>> getHL(char[][] gridC) {
         Map<Integer,List<Line>> horizontalLinesMap = new TreeMap<>(Collections.reverseOrder());
         for(int i=0;i<gridC.length;i++){
             int j=0;
@@ -163,11 +180,17 @@ public class ValidPlus {
                 }
                 j++;
             }
+            if(count>0 && (count-1)%2!=0){
+                List<Line> lines = horizontalLinesMap.getOrDefault(count,new ArrayList<>());
+                lines.add(new Line(new Point(i,0),new Point(i,j-1)));
+                horizontalLinesMap.put(count,lines);
+            }
+
 
         }
         return horizontalLinesMap;
     }
-    private static Map<Integer, List<Line>> getVL(char[][] gridC) {
+    public static Map<Integer, List<Line>> getVL(char[][] gridC) {
         Map<Integer,List<Line>> verticalLinesMap = new TreeMap<>(Collections.reverseOrder());
         for(int j=0;j<gridC[0].length;j++){
             int i=0;
@@ -182,7 +205,14 @@ public class ValidPlus {
                         lines.add(new Line(new Point(i-count+1,j),new Point(i,j)));
                         verticalLinesMap.put(count,lines);
                     }
+                    count = 0;
                 }
+                i++;
+            }
+            if(count>1 && count%2 != 0){
+                List<Line> lines = verticalLinesMap.getOrDefault(count,new ArrayList<>());
+                lines.add(new Line(new Point(i-count,j),new Point(i-1,j)));
+                verticalLinesMap.put(count,lines);
             }
         }
         return verticalLinesMap;
