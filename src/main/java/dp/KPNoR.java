@@ -19,7 +19,8 @@ public class KPNoR {
             for(int j=1;j<table[i].length;j++){
                 //skipValMax is maximum value that can be obtained by not taking the jth item for ith weight
                 //includeValMax is maximum value that can be obtained by including jth item for ith weight
-                int skipValMax = table[i][j-1],includeValMax = 0;
+                int skipValMax = table[i][j-1];
+                int includeValMax = 0;
                 if(i>=recursion.KPNoR.W[j-1]){ //if weight > weight of jth item
                     includeValMax = recursion.KPNoR.V[j-1] + table[i-recursion.KPNoR.W[j-1]][j];
                     //value = value of jth item + max value of for weight of (i - jth item)
