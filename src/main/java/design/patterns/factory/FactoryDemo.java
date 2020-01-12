@@ -10,7 +10,7 @@ import design.shapes.Square;
 public class FactoryDemo {
 
     public static void main(String[] args){
-        ShapeFactory factory = ShapeFactory.getInstance();
+        ShapeFactory factory = ShapeFactory.createFactory();
         Shape shape1 = factory.getDefaultShapes(Circle.name);
         Square shape2 = (Square)factory.getDefaultShapes(Square.name);
 

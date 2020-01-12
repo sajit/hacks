@@ -72,10 +72,10 @@ public class CrosswordTests {
         board[2][3]='-';
     }
 
-    @Test
-    public void testSuperDigit(){
-        assertEquals(8,Solution.superDigit("9875",4));
-    }
+//    @Test
+//    public void testSuperDigit(){
+//        assertEquals(8,Solution.superDigit("9875",4));
+//    }
 
     @Test
     public void testBiggerGreater() {

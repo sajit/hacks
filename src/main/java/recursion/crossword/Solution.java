@@ -70,19 +70,32 @@ public class Solution {
             return false;
         }
         boolean result = true;
-        for(Slot possibleSlot : possibleSlots){
+        for(int i=0;i<possibleSlots.size();i++){
+            Slot possibleSlot = possibleSlots.get(i);
             assign(word,possibleSlot,board);
-            slots.remove(possibleSlot);
-            wordList.remove(word);
-
-            result = solve(slots,wordList,board);
-            if(!result){
+            result = solve(slots,wordList.subList(1,wordList.size()),board);
+            if(!result) {
                 unassign(word,possibleSlot,board);
-                slots.add(possibleSlot);
-                wordList.add(word);
+
+            }
+            else {
+                break;
             }
 
         }
+//        for(Slot possibleSlot : possibleSlots){
+//
+//            //slots.remove(possibleSlot);
+//            wordList.remove(word);
+//
+//            result = solve(slots,wordList,board);
+//            if(!result){
+//                unassign(word,possibleSlot,board);
+//                slots.add(possibleSlot);
+//                wordList.add(word);
+//            }
+//
+//        }
         return result;
     }
 
@@ -226,36 +239,25 @@ public class Solution {
 
     // Complete the superDigit function below.
 
-    static int doSuperDigit(String s){
-        if(s.length()==1){
-            return Integer.valueOf(s);
-        }
-        int sum = 0;
-        for(int i=0;i<s.length();i++){
-            sum += Integer.parseInt(String.valueOf(s.charAt(i)));
-        }
-        return doSuperDigit(String.valueOf(sum));
+//    static int doSuperDigit(String s){
+//        if(s.length()==1){
+//            return Integer.valueOf(s);
+//        }
+//        int sum = 0;
+//        for(int i=0;i<s.length();i++){
+//            sum += Integer.parseInt(String.valueOf(s.charAt(i)));
+//        }
+//        return doSuperDigit(String.valueOf(sum));
+//
+//    }
+//    public static int superDigit(String n, int k) {
+//        StringBuffer sb = new StringBuffer();
+//        for(int i=0;i<k;i++){
+//            sb.append(n);
+//        }
+//        return doSuperDigit(sb.toString());
+//    }
 
-    }
-    public static int superDigit(String n, int k) {
-        StringBuffer sb = new StringBuffer();
-        for(int i=0;i<k;i++){
-            sb.append(n);
-        }
-        return doSuperDigit(sb.toString());
-    }
-
-    static long solve(long n) {
-
-        for(long x=0;x<=n;x++){
-            long xor = x^n;
-
-            if(x+n==xor){
-                return x;
-            }
-        }
-        return n;
-    }
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -283,7 +285,6 @@ public class Solution {
 
             bufferedWriter.newLine();
 
-            bufferedWriter.close();
         }
 
         scanner.close();

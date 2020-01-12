@@ -9,7 +9,7 @@ import design.shapes.Square;
  */
 public class ShapeFactory {
 
-    private static ShapeFactory factory;
+
     private ShapeFactory(){
     }
 
@@ -17,11 +17,8 @@ public class ShapeFactory {
      * This also illustrates the singleton design pattern
      * @return
      */
-    public static ShapeFactory getInstance(){
-        if(factory == null){
-            factory = new ShapeFactory();
-        }
-        return factory;
+    public static ShapeFactory createFactory(){
+       return new ShapeFactory();
 
     }
 
