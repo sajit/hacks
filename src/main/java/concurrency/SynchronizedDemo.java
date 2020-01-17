@@ -16,8 +16,9 @@ package concurrency;
  */
 public class SynchronizedDemo {
 	public static void main(String[] args) {
-		Counter counter = new Counter();
-		Thread t0 = new Thread(() -> {
+		String count_prefix = "Count="; //count_prefix is in String pool (in heap)
+		Counter counter = new Counter(); // "counter" is object refrence in stack pointing to the object in the heap
+		Thread t0 = new Thread(() -> { //No. All threads share a common heap. t0 is an object in heap
 			counter.inc();
 			System.out.println("Count="+counter.getCount());
 		});
@@ -37,8 +38,8 @@ class Counter {
 	public void inc() {
 		synchronized (this) {
 			System.out.println(Thread.currentThread().getName()+" has lock");
-			for(int i=Integer.MIN_VALUE;i<Integer.MAX_VALUE;i++);
-			count++;
+			for(int i=Integer.MIN_VALUE;i<Integer.MAX_VALUE;i++); // i is a primitive variable in function stack
+			this.count++; //instance variable
 		}
 
 	}
