@@ -17,24 +17,20 @@ package concurrency;
 public class SynchronizedDemo {
 	public static void main(String[] args) {
 		Counter counter = new Counter();
-		CounterIncrementer t1 = new CounterIncrementer(counter);
-		CounterIncrementer t2 = new CounterIncrementer(counter);
-		t2.start();
+		Thread t0 = new Thread(() -> {
+			counter.inc();
+			System.out.println("Count="+counter.getCount());
+		});
+		Thread t1 = new Thread(() -> {
+			counter.inc();
+			System.out.println("Count="+counter.getCount());
+		});
 		t1.start();
-	}
-}
-class CounterIncrementer extends Thread {
-	private final Counter counter;
-	public CounterIncrementer(Counter counter){
-		this.counter = counter;
+		t0.start();
 	}
 
-	@Override
-	public void run() {
-		counter.inc();
-		System.out.println("Count="+counter.getCount());
-	}
 }
+
 class Counter {
 
 	private int count = 0;
