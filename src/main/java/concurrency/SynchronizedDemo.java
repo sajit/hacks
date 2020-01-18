@@ -30,6 +30,10 @@ public class SynchronizedDemo {
 		t0.start();
 	}
 
+	private final void doNotChoose() {
+		return ;
+	}
+
 }
 
 class Counter {
