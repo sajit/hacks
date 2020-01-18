@@ -29,19 +29,23 @@ public class MinHeap {
     public int findMin(){
 
         if(heapSize==0){
-            throw new RuntimeException("Empty");
+            throw new IllegalStateException("Empty");
         }
         return heapArr[1];
     }
 
     public void deleteMin(){
+        if(heapSize==0){
+            throw new IllegalStateException("Empty");
+        }
         heapArr[1]=heapArr[heapSize];
         heapSize--;
         int idx=1;
         while(idx<=heapSize){
             int lc = getLeftChild(idx);
             int rc = getRighChild(idx);
-            boolean isGreaterThanLC = false,isGreaterThanRC = false;
+            boolean isGreaterThanLC = false;
+            boolean isGreaterThanRC = false;
             if(lc<=heapSize && heapArr[idx]>heapArr[lc]){
                 isGreaterThanLC = true;
             }
@@ -81,12 +85,13 @@ public class MinHeap {
 
     public void insert(int value){
         if(heapSize>heapArr.length){
-            throw new RuntimeException("Too long");
+            throw new IllegalStateException("Too long");
 
         }
         heapArr[heapSize+1] = value;
         heapSize++;
-        int idx = heapSize, parent = getParent(idx);
+        int idx = heapSize;
+        int parent = getParent(idx);
         while(idx>=1 && heapArr[parent] > heapArr[idx]){
             swap(idx,parent);
             idx = parent;

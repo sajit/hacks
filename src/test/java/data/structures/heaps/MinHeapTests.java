@@ -9,6 +9,16 @@ import static org.fest.assertions.Assertions.assertThat;
  */
 public class MinHeapTests {
     MinHeap minHeap = new MinHeap(10);
+
+    @Test(expected = IllegalStateException.class)
+    public void cannotFindFromEmptyHeap() {
+        new MinHeap(5).findMin();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void cannotDeleteFromEmptyHeap() {
+        new MinHeap(5).deleteMin();
+    }
     @Test
     public void insertShouldBubbleUp(){
 
