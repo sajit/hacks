@@ -20,11 +20,11 @@ public class SynchronizedDemo {
 		Counter counter = new Counter(); // "counter" is object refrence in stack pointing to the object in the heap
 		Thread t0 = new Thread(() -> { //No. All threads share a common heap. t0 is an object in heap
 			counter.inc();
-			System.out.println("Count="+counter.getCount());
+			System.out.println(count_prefix+counter.getCount());
 		});
 		Thread t1 = new Thread(() -> {
 			counter.inc();
-			System.out.println("Count="+counter.getCount());
+			System.out.println(count_prefix+counter.getCount());
 		});
 		t1.start();
 		t0.start();
