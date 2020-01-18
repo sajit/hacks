@@ -44,31 +44,22 @@ public class MinHeap {
         while(idx<=heapSize){
             int lc = getLeftChild(idx);
             int rc = getRighChild(idx);
-            boolean isGreaterThanLC = false;
-            boolean isGreaterThanRC = false;
-            if(lc<=heapSize && heapArr[idx]>heapArr[lc]){
-                isGreaterThanLC = true;
-            }
-            if(rc<=heapSize && heapArr[idx]>heapArr[rc]){
-                isGreaterThanRC = true;
-            }
+            boolean isGreaterThanLC = lc<=heapSize && heapArr[idx]>heapArr[lc];
+            boolean isGreaterThanRC = rc<=heapSize && heapArr[idx]>heapArr[rc];
+
             if(isGreaterThanLC && isGreaterThanRC){
                 if(heapArr[lc]<heapArr[rc]){
-                    swap(idx, lc);
-                    idx = lc;
+                    idx = swapAndGetCurrentWorkingIdx(idx, lc);
                 }
                 else{
-                    swap(idx,rc);
-                    idx = rc;
+                    idx = swapAndGetCurrentWorkingIdx(idx,rc);
                 }
             }
             else if(isGreaterThanLC){
-                swap(idx,lc);
-                idx = lc;
+                idx = swapAndGetCurrentWorkingIdx(idx,lc);
             }
             else if(isGreaterThanRC){
-                swap(idx,rc);
-                idx = rc;
+                idx = swapAndGetCurrentWorkingIdx(idx,rc);
             }
             else{
                 return;
@@ -77,10 +68,17 @@ public class MinHeap {
 
     }
 
-    private void swap(int idx, int lc) {
-        int temp = heapArr[idx];
-        heapArr[idx] = heapArr[lc];
-        heapArr[lc] = temp;
+    /**
+     * Swaps two elements in the array . Swaps the elements between the original index and newIndex.
+     * @param originalIndex
+     * @param newIndex
+     * @return the new index of the element that was in the original index
+     */
+    private int swapAndGetCurrentWorkingIdx(int originalIndex, int newIndex) {
+        int temp = heapArr[originalIndex];
+        heapArr[originalIndex] = heapArr[newIndex];
+        heapArr[newIndex] = temp;
+        return newIndex;
     }
 
     public void insert(int value){
@@ -93,8 +91,7 @@ public class MinHeap {
         int idx = heapSize;
         int parent = getParent(idx);
         while(idx>=1 && heapArr[parent] > heapArr[idx]){
-            swap(idx,parent);
-            idx = parent;
+            idx = swapAndGetCurrentWorkingIdx(idx,parent);
             parent = getParent(idx);
         }
 
