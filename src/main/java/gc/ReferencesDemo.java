@@ -11,6 +11,8 @@ public class ReferencesDemo {
 		fooWR.clear();
 		System.out.println(fooWR.get());
 
+		System.out.println(Integer.class.isInstance(new Integer(5)));
+
 	}
 }
 class Foo {
