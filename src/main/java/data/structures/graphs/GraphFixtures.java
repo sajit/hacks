@@ -28,6 +28,15 @@ public class GraphFixtures {
         graph.addEdge("7",1,"6");
 
         graph.addEdge("8",2,"2");
+        printGraph(graph);
         return  graph;
+    }
+
+    private static void printGraph(DirectedGraph graph) {
+        for(Vertex v : graph.vertexList) {
+            for(Edge e : v.edgeList) {
+                System.out.println(e);
+            }
+        }
     }
 }
