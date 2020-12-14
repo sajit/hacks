@@ -28,10 +28,13 @@ public class RegexTests {
         assertThat(RegexMatcher.isMatch("aa","a*b")).isFalse();
 
         assertThat(RegexMatcher.isMatch("aa","a*b*")).isTrue();
-        //assertThat(RegexMatcher.isMatch("aa","a*b*a")).isTrue();
         assertThat(RegexMatcher.isMatch("",".*")).isTrue();
         assertThat(RegexMatcher.isMatch("aaab",".*")).isTrue();
-        assertThat(RegexMatcher.isMatch("aaa",".*aa")).isTrue();
-        assertThat(RegexMatcher.isMatch("aa","a*b*b")).isFalse();
+      assertThat(RegexMatcher.isMatch("aaa",".*aa")).isTrue();
+      assertThat(RegexMatcher.isMatch("aa","a*b*b")).isFalse();
+      assertThat(RegexMatcher.isMatch("aaab",".*aa")).isFalse();
+      assertThat(RegexMatcher.isMatch("aaab",".*aa.*")).isTrue();
+      assertThat(RegexMatcher.isMatch("aaaaa","a*a*")).isTrue();
+      assertThat(RegexMatcher.isMatch("aa","a*b*a")).isTrue();
     }
 }

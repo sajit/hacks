@@ -39,25 +39,17 @@ public class RegexMatcher {
                       //nothing to do
                   }
                   if(next == '*'){
-                      int tIdx=0;
-                      if(cur=='.'){
-                         while(tIdx<target.length()){
-                             tIdx++;
-                         }
-                          int j=2;
-                          while(j<tIdx+2 && j < regex.length())
-                              j++;
-                         return isMatch("",regex.substring(j));
-                      }
-                      else{
-                          while(tIdx < target.length() && target.charAt(tIdx)==cur ){
-                              tIdx++;
+
+                          //for each substring in target try to see if pattern fits starting from "" to entire target
+                          boolean foundMatch;
+                          for(int i=0;i<=target.length();i++){
+                              String targetSubstring = target.substring(target.length()-i);
+                              foundMatch = isMatch(targetSubstring,regex.substring(2));
+                              if(foundMatch) {
+                                  return true;
+                              }
                           }
-                          int j=2;
-                          while(j<tIdx+2 && j < regex.length() && regex.charAt(j) == cur)
-                              j++;
-                          return isMatch(target.substring(tIdx),regex.substring(j));
-                      }
+                          return false;
 
                   }
                   else{
