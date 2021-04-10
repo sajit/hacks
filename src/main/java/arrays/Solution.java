@@ -2,6 +2,7 @@ package arrays;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,6 +38,60 @@ public class Solution {
             }
         }
         return Collections.emptyList();
+    }
+
+    /**
+     * returns rectangles coordinates for rectangle starting at xCor, yCor or empty Array if no such rectangle
+     * @param image
+     * @param xCor
+     * @param yCor
+     * @return
+     */
+    public static List<Integer> getRectangleStartingAt(int[][] image,int xCor, int yCor) {
+        int i = xCor;
+        int j = yCor;
+        if(image[i][j]==0){
+            //search right
+            int k=j;
+            while(k<image[i].length && image[i][k]==0){
+                k++;
+            }
+            //search down
+            int l=i;
+            while(l<image.length && image[l][j]==0) {
+                l++;
+            }
+            return ImmutableList.of(i,j,l-1,k-1);
+        }
+        else
+            return Collections.emptyList();
+    }
+
+    public static List<List<Integer>> findAllRectangles(int[][] image){
+        List<List<Integer>> allImageCors = new ArrayList<>();
+        for(int i=0;i<image.length;i++){
+            for(int j=0;j<image[i].length;j++){
+                List<Integer> imageCoordinates = getRectangleStartingAt(image,i,j);
+                if(!imageCoordinates.isEmpty()) {
+                    boolean isInsideExistingRectangle = false;
+                    for(List<Integer> imageCor : allImageCors){
+                        if(isInImage(imageCor,i,j)) {
+                            isInsideExistingRectangle = true;
+                            break;
+                        }
+                    }
+                    if(!isInsideExistingRectangle) {
+                        allImageCors.add(imageCoordinates);
+                    }
+                }
+
+            }
+        }
+        return allImageCors;
+    }
+
+    public static boolean isInImage(List<Integer> imageCor, int i, int j) {
+        return i>=imageCor.get(0) && i <= imageCor.get(2) && j>=imageCor.get(1) && j <= imageCor.get(3);
     }
 
 }

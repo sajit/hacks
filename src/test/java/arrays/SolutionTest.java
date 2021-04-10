@@ -29,4 +29,11 @@ public class SolutionTest {
         int[][] image = {{1,1,1,1,1},{1,1,0,0,0},{1,1,0,0,0}};
         Assert.assertEquals(ImmutableList.of(1,2,2,4),Solution.getRectangle(image));
     }
+    @Test
+    public void printAllRects() {
+        int[][] image = {
+                {0,1,1,1,1,1},{1,1,1,0,1,1},{0,1,1,0,1,1}
+        };
+        System.out.println(Solution.findAllRectangles(image));
+    }
 }
